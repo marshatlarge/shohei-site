@@ -31,10 +31,6 @@ I focused on building a good UI/UX as fast as possible. Because of this, I make 
 
 ![Application Screenshot 2](/public/photo2.png)
 
-![Application Screenshot 3](/public/photo3.png)
-
-![Application Screenshot 4](/public/photo4.png)
-
 ## Technology Stack
 
 ### Frontend
@@ -49,7 +45,7 @@ I focused on building a good UI/UX as fast as possible. Because of this, I make 
 
 - **Amazon S3**: The application was deployed to an S3 bucket, enabling static web hosting with high availability and scalability. [View the Live Ohtani Application Here.](http://pirates-data-vis.s3-website-us-east-1.amazonaws.com/)
 
-- **Google Chrome**: This application was primarily developed using Google Chrome and Chrome Dev Tools. I tested it of safari on my IPhone afterwards and it appears to work well.
+- **Google Chrome**: This application was primarily developed using Google Chrome and Chrome Dev Tools. I tested it on safari on my IPhone afterwards and it appears to work well.
 
 ## Running the JS exercsie and data application.
 
