@@ -1,0 +1,18 @@
+{
+  "pitchType": "",
+  "half": "",
+  "batSide": "",
+  "batterName": "",
+  "gameDate": "",
+  "balls": "",
+  "strikes": "",
+  "isSwing": -1,
+  "isInPlay": -1,
+  "isMiss": -1,
+  "inning": "0",
+  "exitVelocity": [0, 140],
+  "launchAngle": [-90, 90],
+  "distance": [0, 520],
+  "velocity": [60, 110],
+  "inPlayHit": -1
+}
