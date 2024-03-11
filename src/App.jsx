@@ -1,88 +1,55 @@
 import "./App.css";
-import pitchesData from "./Ohtani_Pitches_2022-2023.json";
+import rawPitches from "./data/Ohtani_Pitches_2022-2023.json";
 import { useState } from "react";
-import logo from "/logo.svg";
-import Biomechanics from "./Biomechanics";
-import PitchDesign from "./PitchDesign";
-import PitchTable from "./PitchTable";
-import Performance from "./Performance";
+
+import PitchDesign from "./components/views/PitchDesign";
+import PitchTable from "./components/views/PitchTable";
+import Performance from "./components/views/Performance";
+import Header from "./components/Header";
+import PlayerInfo from "./components/ohtani/PlayerInfo";
+import Tabs from "./components/tools/Tabs";
+import Filters from "./components/tools/Filters";
 
 export default function App() {
   const [view, setView] = useState("Pitch Table");
+  const [data, setData] = useState(rawPitches);
+  const [filtersVisible, setFiltersVisible] = useState(false);
 
-  console.log(view);
+  const toggleFilters = () => setFiltersVisible(!filtersVisible); // Function to toggle Filters visibility
 
   return (
     <>
-      <div className="flex items-center justify-between h-24 bg-black text-pYellow px-10">
-        <img src={logo} className="w-7 h-auto hover:scale-105"></img>
-        <span className="font-bold text-md text-wrap border-pYellow border-4 p-2">
-          Pittsburgh Pirates
-        </span>
+      <div className="fixed w-screen z-50">
+        <Header toggleFilters={toggleFilters} filtersVisible={filtersVisible} />
       </div>
-
-      <div className="flex flex-col items-center justify-center gap-2 text-center">
-        <img src="/ohtani.png" className="w-40 h-auto"></img>
-
-        <p className="text-lg font-semibold">Shohei Ohtani</p>
-        <p className="text-sm">Los Angeles Dodgers</p>
-
-        <div className="flex gap-5">
-          <div>
-            <label className="font-bold">Age</label>
-            <p>29</p>
-          </div>
-          <div>
-            <label className="font-bold">Throws</label>
-            <p>Right</p>
-          </div>
-
-          <div>
-            <label className="font-bold">Size</label>
-            <p>6'4" 210lbs</p>
-          </div>
+      {/*Did some messy stuf here to make everything responsive for mobile*/}
+      <div className="flex">
+        <div
+          className={`${
+            filtersVisible
+              ? "flex flex-col items-center md:items-start z-40 fixed w-screen md:w-80 bg-white md:bg-none h-screen overflow-y-scroll overflow-x-hidden pl-5 pb-44 shadow-gray-300 shadow-lg mt-24"
+              : "hidden md:block fixed w-80 h-screen overflow-y-scroll overflow-x-hidden pl-5 pb-20 shadow-gray-300 shadow-lg mt-24"
+          }`}
+        >
+          <Filters rawPitches={rawPitches} setData={setData} />
         </div>
-      </div>
+        <div
+          className={`${
+            !filtersVisible
+              ? "ml-0 md:ml-80 flex-grow overflow-auto mt-24"
+              : "hidden md:block ml-0 md:ml-80 flex-grow overflow-auto mt-24"
+          }`}
+        >
+          <PlayerInfo />
+          <Tabs view={view} setView={setView} />
 
-      <div className="flex text-sm font-semibold justify-center">
-        <button
-          className={`p-1 border-pYellow border-2 ${
-            view === "Pitch Table" ? "bg-pYellow" : "hover:bg-yellow-200"
-          } transition duration-300`}
-          onClick={() => setView("Pitch Table")}
-        >
-          Pitch Table
-        </button>
-        <button
-          className={`p-1 border-pYellow border-2 ${
-            view === "Performance" ? "bg-pYellow" : "hover:bg-yellow-200"
-          }  transition duration-300`}
-          onClick={() => setView("Performance")}
-        >
-          Performance
-        </button>
-        <button
-          className={`p-1 border-pYellow border-2 ${
-            view === "Biomechanics" ? "bg-pYellow" : "hover:bg-yellow-200"
-          } transition duration-300`}
-          onClick={() => setView("Biomechanics")}
-        >
-          Biomechanics
-        </button>
-        <button
-          className={`p-1 border-pYellow border-2 ${
-            view === "Pitch Design" ? "bg-pYellow" : "hover:bg-yellow-200"
-          } transition duration-300`}
-          onClick={() => setView("Pitch Design")}
-        >
-          Pitch Design
-        </button>
-      </div>
+          {view === "Pitch Table" && <PitchTable data={data} />}
+          {view === "Performance" && <Performance data={data} />}
 
-      {view === "Pitch Table" && <PitchTable />}
-      {view === "Performance" && <Performance />}
-      {view === "Biomechanics" && <Biomechanics />}
-      {view === "PitchDesign" && <PitchDesign />}
+          {view === "Pitch Design" && <PitchDesign data={data} />}
+        </div>
+        )}
+      </div>
     </>
   );
 }
