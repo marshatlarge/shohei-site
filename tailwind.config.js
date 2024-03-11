@@ -4,7 +4,7 @@ export default {
   theme: {
     extend: {
       colors: {
-        pYellow: "#F8D95D", // Example: A yellow color. Replace '#FDE047' with your desired color value.
+        pYellow: "#F8D95D", // Pirates yellow pulled directly from pirates.com logos/graphics
       },
     },
   },
